@@ -1,0 +1,193 @@
+@layer base {
+  :root {
+    --toast-variant: #6a6a6a;
+    --toast-background: #eeeeee;
+    --toast-color: #2c2c2c;
+    --toast-transform: translate(0, 0);
+  }
+
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+    font-size: 16px;
+  }
+}
+
+@layer components {
+  .easy-toast {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 100;
+
+    svg {
+      height: 24px;
+    }
+
+    button {
+      all: initial;
+      line-height: 0;
+      cursor: pointer;
+    }
+  }
+
+  .easy-toast-wrapper {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    padding: 10px 15px;
+    width: fit-content;
+  }
+
+  .toast {
+    width: 20rem;
+    pointer-events: auto;
+    display: flex;
+    background-color: var(--toast-background);
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 10px,
+      rgba(0, 0, 0, 0.05) 0px 2px 15px;
+    padding: 10px 15px;
+    border-radius: 5px;
+    overflow: hidden;
+    transform: var(--toast-transform);
+    margin-bottom: 1rem;
+    max-height: 10rem;
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+      max-height 0.3s ease-in-out, margin-bottom 0.3s ease-in-out,
+      padding-top 0.3s ease-in-out, padding-bottom 0.3s ease-in-out,
+      opacity 0.3s ease-in-out;
+  }
+
+  .toast-alert {
+    display: flex;
+    align-items: start;
+    gap: 8px;
+    width: 100%;
+  }
+
+  .before svg {
+    fill: var(--toast-variant);
+  }
+
+  .content {
+    color: var(--toast-color);
+    font-size: 1.1rem;
+    flex: 1;
+  }
+
+  .after svg {
+    opacity: 0.3;
+    transition: opacity 0.15s linear;
+  }
+  .after svg:hover {
+    opacity: 1;
+  }
+
+  .toast-progressbar {
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 5px;
+  }
+}
+
+@layer utilities {
+  .--closeOnClick {
+    cursor: pointer;
+  }
+
+  .--removing {
+    max-height: 0;
+    margin-bottom: 0;
+    opacity: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    overflow: hidden;
+  }
+
+  .--variant-success {
+    --toast-variant: #2c9c2c;
+  }
+
+  .--variant-warning {
+    --toast-variant: #d8d83e;
+  }
+
+  .--variant-error {
+    --toast-variant: #fe3c3c;
+  }
+
+  .--variant-info {
+    --toast-variant: #76c6ff;
+  }
+
+  .--variant-default {
+    --toast-variant: #6a6a6a;
+  }
+
+  .--top-left {
+    top: 1rem;
+    left: 1rem;
+    --toast-transform: translateX(-120%);
+  }
+
+  .--top-center {
+    top: 1rem;
+    left: 50%;
+    transform: translate(-50%);
+    --toast-transform: translateY(-100%);
+  }
+
+  .--top-right {
+    top: 1rem;
+    right: 1rem;
+    --toast-transform: translateX(120%);
+  }
+
+  .--bottom-left {
+    left: 1rem;
+    bottom: 1rem;
+    --toast-transform: translateX(-120%);
+  }
+
+  .--bottom-center {
+    left: 50%;
+    bottom: 1rem;
+    transform: translate(-50%);
+    --toast-transform: translateY(100%);
+  }
+
+  .--bottom-right {
+    right: 1rem;
+    bottom: 1rem;
+    --toast-transform: translateX(120%);
+  }
+
+  .--show {
+    --toast-transform: translate(0, 0);
+  }
+}
+
+@layer animation {
+  .toast-progressbar-animation {
+    width: 100%;
+    height: 100%;
+    background-color: var(--toast-variant);
+    opacity: 0.7;
+  }
+
+  .toast-progressbar-animation-start {
+    animation: progressbar-animation linear forwards;
+  }
+
+  @keyframes progressbar-animation {
+    from {
+      width: 100%;
+    }
+    to {
+      width: 0%;
+    }
+  }
+}
